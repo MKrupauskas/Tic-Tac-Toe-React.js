@@ -111,6 +111,7 @@ class Game extends React.Component {
         <div className="game-info">
           <div>{status}</div>
           <ol>{moves}</ol>
+          <button onClick={() => this.jumpTo(0)}>Restart Game</button>
         </div>
       </div>
     );
