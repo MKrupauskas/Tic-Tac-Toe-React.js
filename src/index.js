@@ -3,8 +3,15 @@ import ReactDOM from "react-dom";
 import "./index.css";
 
 function Square(props) {
+  const style = {
+    color: "red"
+  };
   return (
-    <button className="square" onClick={props.onClick}>
+    <button
+      style={true ? style : null}
+      className="square"
+      onClick={props.onClick}
+    >
       {props.value}
     </button>
   );
