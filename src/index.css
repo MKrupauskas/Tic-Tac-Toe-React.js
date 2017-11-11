@@ -43,10 +43,6 @@ ul {
   width: 75px;
 }
 
-.square-win {
-  color: hsla(0, 100%, 50%, 1);
-}
-
 .square:focus {
   outline: none;
 }
