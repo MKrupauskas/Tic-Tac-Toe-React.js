@@ -3,12 +3,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 
 function Square(props) {
-  const style = {
-    color: "red"
-  };
   return (
     <button
-      style={true ? style : null}
       className="square"
       onClick={props.onClick}
     >
@@ -52,7 +48,8 @@ class Game extends React.Component {
     this.state = {
       history: [
         {
-          squares: Array(9).fill(null)
+          squares: Array(9).fill(null),
+          winningSquares: Array(3).fill(null)
         }
       ],
       stepNumber: 0,
@@ -65,14 +62,16 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
+    console.log(current.squares.slice());
+    if (calculateWinner(squares).winner || squares[i]) {
       return;
     }
     squares[i] = this.state.xIsNext ? "X" : "O";
     this.setState({
       history: history.concat([
         {
-          squares: squares
+          squares: squares,
+          winningSquares: calculateWinner(squares).winningSquares
         }
       ]),
       stepNumber: history.length,
@@ -90,7 +89,7 @@ class Game extends React.Component {
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
+    const winner = calculateWinner(current.squares).winner;
 
     const moves = history.map((step, move) => {
       const desc = move ? "Move #" + move : "Game start";
@@ -114,7 +113,11 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-board">
-          <Board squares={current.squares} onClick={i => this.handleClick(i)} />
+          <Board
+            squares={current.squares}
+            winningSquares={current.winningSquares}
+            onClick={i => this.handleClick(i)}
+          />
         </div>
         <div className="game-info">
           <div>{status}</div>
@@ -146,11 +149,19 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      console.log(lines[i]);
-      return squares[a];
+      console.log([a, b, c]);
+      return { "winner": squares[a], "winningSquares": [a, b, c] };
     }
   }
-  return null;
+  return { "winner": null, "winningSquares": [null, null, null] };
+
+  // for (let i = 0; i < lines.length; i++) {
+  //   const [a, b, c] = lines[i];
+  //   if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+  //     return { winner: squares[a], winningLine: [a, b, c] };
+  //   }
+  // }
+  // return { winner: null, winningLine: [null, null, null] };
 }
 // ========================================
 
