@@ -154,15 +154,6 @@ function calculateWinner(squares) {
     }
   }
   return { "winner": null, "winningSquares": [null, null, null] };
-
-  // for (let i = 0; i < lines.length; i++) {
-  //   const [a, b, c] = lines[i];
-  //   if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-  //     return { winner: squares[a], winningLine: [a, b, c] };
-  //   }
-  // }
-  // return { winner: null, winningLine: [null, null, null] };
 }
-// ========================================
 
 ReactDOM.render(<Game />, document.getElementById("root"));
