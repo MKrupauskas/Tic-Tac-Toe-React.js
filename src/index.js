@@ -5,7 +5,7 @@ import "./index.css";
 function Square(props) {
   return (
     <button
-      className="square"
+      className={props.y}
       onClick={props.onClick}
     >
       {props.value}
@@ -17,8 +17,8 @@ class Board extends React.Component {
   renderSquare(i, x) {
     return (
       <Square
-        className={x.filter(
-          (v) => v === i).length > 0 ?
+        y={x.filter(
+          (j) => { return j === i }).length > 0 ?
           "square square--win" :
           "square"}
         key={i}
