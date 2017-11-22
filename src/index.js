@@ -18,7 +18,7 @@ class Board extends React.Component {
     return (
       <Square
         y={x.filter(
-          (j) => { return j === i }).length > 0 ?
+          (j) => { return j === i }).length ?
           "square square--win" :
           "square"}
         key={i}
@@ -29,19 +29,16 @@ class Board extends React.Component {
   }
 
   render() {
-    console.error(this.props.x);
-    let i = -1,
-      squareIndex = -1;
-    const rows = [...Array(3)].map(() => {
+    let i = -1, si = -1;
+    const rows = Array(3).fill(null).map(() => {
       i++;
-      return (
-        <div key={i} className="board-row">
-          {[...Array(3)].map(() => {
-            squareIndex++;
-            return this.renderSquare(squareIndex, this.props.x);
-          })}
-        </div>
-      );
+      return <div key={i} className="board-row">
+        {Array(3).fill(null).map(() => {
+          si++;
+          return this.renderSquare(si, this.props.x);
+        })}
+      </div>
+
     });
     return <div>{rows}</div>;
   }
@@ -67,7 +64,6 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
-    console.log(current.squares.slice());
     if (calculateWinner(squares).winner || squares[i]) {
       return;
     }
@@ -109,11 +105,7 @@ class Game extends React.Component {
     });
 
     let status;
-    if (winner) {
-      status = "Winner: " + winner;
-    } else {
-      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
-    }
+    status = winner ? "Winner: " + winner : "Next player: " + (this.state.xIsNext ? "X" : "O");
     return (
       <div className="game">
         <div className="game-board">
@@ -153,7 +145,6 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      console.log([a, b, c]);
       return { "winner": squares[a], "winningSquares": [a, b, c] };
     }
   }
