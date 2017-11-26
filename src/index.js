@@ -93,7 +93,7 @@ class Game extends React.Component {
     const winner = calculateWinner(current.squares).winner;
 
     const moves = history.map((step, move) => {
-      const desc = move ? "Move #" + move : "Game start";
+      const desc = move ? `Move # ${move}` : "Game start";
       const link = `#${move}`;
       return (
         <li key={move}>
@@ -105,7 +105,7 @@ class Game extends React.Component {
     });
 
     let status;
-    status = winner ? "Winner: " + winner : "Next player: " + (this.state.xIsNext ? "X" : "O");
+    status = winner ? `Winner: ${winner}` : `Next player: ${this.state.xIsNext ? "X" : "O"}`;
     return (
       <div className="game">
         <div className="game-board">
