@@ -13,36 +13,37 @@ function Square(props) {
   );
 }
 
-class Board extends React.Component {
-  renderSquare(i, x) {
-    return (
-      <Square
-        y={x.filter(
-          (j) => { return j === i }).length ?
-          "square square--win" :
-          "square"}
-        key={i}
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
-      />
-    );
-  }
-
-  render() {
-    let i = -1, si = -1;
-    const rows = Array(3).fill(null).map(() => {
-      i++;
-      return <div key={i} className="board-row">
-        {Array(3).fill(null).map(() => {
-          si++;
-          return this.renderSquare(si, this.props.x);
-        })}
-      </div>
-
-    });
-    return <div>{rows}</div>;
-  }
+function Board(props) {
+  return (
+    <div> 
+    {
+      Array(3).fill(null).map((i) => {
+        return <div key={i} className="board-row" />
+      }
+    }
+    </div>
+  );
 }
+/*
+-------------------------------
+
+
+{return <div key={i} className="board-row">}
+            {/* {Array(3).fill(null).map((l) => {
+                  return (<Square
+                    y={this.props.x.filter(
+                      (j) => { return j === l }).length ?
+                      "square square--win" :
+                      "square"}
+                    key={l}
+                    value={this.props.squares[l]}
+                    onClick={() => this.props.onClick(l)}
+                  />);
+                })} */}
+
+
+-------------------------------
+/*
 
 class Game extends React.Component {
   constructor() {
