@@ -16,20 +16,35 @@ function Square(props) {
 function Board(props) {
   return (
     <div> 
-    {
-      Array(3).fill(null).map((i) => {
-        return <div key={i} className="board-row" />
+    {/* { Array(3).fill(null).map((i) => 
+        <div key={i} className="board-row" />
+      
+    } */}
+      { 
+        Array(3).fill(null).map((x, i) =>
+          <div key={i} className="board-row">
+            {
+              Array(3).fill(null).map((v, index) =>
+                <Square
+                  y={props.x.filter(
+                    (v) => { return v === index }).length ?
+                    "square square--win" :
+                    "square"}
+                  key={index}
+                  value={props.squares[index]}
+                  onClick={() => props.onClick(index)}
+                />
+              )
+            }
+          </div>
+        )
       }
-    }
     </div>
   );
 }
-/*
--------------------------------
 
-
-{return <div key={i} className="board-row">}
-            {/* {Array(3).fill(null).map((l) => {
+{/*return <div key={i} className="board-row">}
+            /* {Array(3).fill(null).map((l) => {
                   return (<Square
                     y={this.props.x.filter(
                       (j) => { return j === l }).length ?
@@ -40,10 +55,6 @@ function Board(props) {
                     onClick={() => this.props.onClick(l)}
                   />);
                 })} */}
-
-
--------------------------------
-/*
 
 class Game extends React.Component {
   constructor() {
