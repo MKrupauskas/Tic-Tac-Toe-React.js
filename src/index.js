@@ -5,7 +5,7 @@ import "./index.css";
 function Square(props) {
   return (
     <button
-      className={props.y}
+      className={props.winningSquares}
       onClick={props.onClick}
     >
       {props.value}
@@ -17,7 +17,7 @@ class Board extends React.Component {
   renderSquare(i, x) {
     return (
       <Square
-        y={x.filter(
+        winningSquares={x.filter(
           (j) => { return j === i }).length ?
           "square square--win" :
           "square"}
@@ -30,18 +30,22 @@ class Board extends React.Component {
 
   render() {
     let si = -1;
-    const rows = Array(3).fill(null).map((a, i) =>
-      <div key={i} className="board-row">
-        {Array(3).fill(null).map(() => {
-          si++;
-          return this.renderSquare(si, this.props.x);
-        })}
-      </div>
 
-    );
-    return <div>{rows}</div>;
+    return <div>
+      {
+        Array(3).fill(null).map((a, i) =>
+          <div key={i} className="board-row">
+            {Array(3).fill(null).map(() => {
+              si++;
+              return this.renderSquare(si, this.props.x);
+            })}
+          </div>
+        )
+      }
+    </div>;
   }
 }
+
 class Game extends React.Component {
   constructor() {
     super();
