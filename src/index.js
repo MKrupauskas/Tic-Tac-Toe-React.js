@@ -14,13 +14,14 @@ function Square(props) {
 }
 
 class Board extends React.Component {
-  renderSquare(i, x) {
+  renderSquare(i, squares) {
     return (
       <Square
-        winningSquares={x.filter(
-          (j) => { return j === i }).length ?
-          "square square--win" :
-          "square"}
+        winningSquares={
+          squares.filter((j) => j === i).length ?
+            "square square--win" :
+            "square"
+        }
         key={i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
@@ -37,7 +38,7 @@ class Board extends React.Component {
           <div key={i} className="board-row">
             {Array(3).fill(null).map(() => {
               si++;
-              return this.renderSquare(si, this.props.x);
+              return this.renderSquare(si, this.props.winningSquares);
             })}
           </div>
         )
@@ -113,7 +114,7 @@ class Game extends React.Component {
         <div className="game-board">
           <Board
             squares={current.squares}
-            x={current.winningSquares}
+            winningSquares={current.winningSquares}
             onClick={i => this.handleClick(i)}
           />
         </div>
