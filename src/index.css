@@ -18,6 +18,10 @@ ul {
   padding-left: 30px;
 }
 
+#toggle {
+  margin-top: 10px;
+}
+
 .board-row:after {
   clear: both;
   content: "";
@@ -62,4 +66,15 @@ ul {
 
 .square--win  {
   color: blue;
+}
+
+@media only screen and (max-width: 389px) {
+  .game {
+      display: block;
+  }
+  
+  .game-info {
+    margin-top: 20px;
+    margin-left: 0px;
+  }
 }

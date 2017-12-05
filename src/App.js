@@ -92,7 +92,8 @@ export default class Game extends React.Component {
         const winner = calculateWinner(current.squares).winner;
 
         const moves = history.map((step, move) => {
-            const desc = move ? `Move # ${move}` : "Game start";
+            console.info(step);
+            const desc = move ? `Move # ${move} ${moveCoords[step]}` : "Game start";
             const link = `#${move}`;
             return (
                 <li key={move}>
@@ -116,12 +117,12 @@ export default class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
-                    <button
+                    <button id="toggle"
                         onClick={() =>
                             this.setState({ reversed: this.state.reversed ? false : true })}
                     >
                         Toggle Order
-          </button>
+                    </button>
                     <ol>{this.state.reversed ? moves.reverse() : moves}</ol>
                     <button onClick={() => this.jumpTo(0)}>Restart Game</button>
                 </div>
