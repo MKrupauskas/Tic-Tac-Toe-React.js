@@ -45,7 +45,6 @@ class Board extends React.Component {
     }
 }
 
-const a = [];
 export default class Game extends React.Component {
     constructor() {
         super();
@@ -58,7 +57,9 @@ export default class Game extends React.Component {
             ],
             stepNumber: 0,
             xIsNext: true,
-            reversed: false
+            reversed: false,
+            coords: [],
+            a: []
         };
     }
 
@@ -67,9 +68,9 @@ export default class Game extends React.Component {
         const current = history[history.length - 1];
         const squares = current.squares.slice();
 
-        const moveCoords = ["(1, 1)", "(1, 2)", "(1, 3)", "(2, 1)", "(2, 2)", "(2, 3)", "(3, 1)", "(3, 2)", "(3, 3)"]
-
-        a.push(moveCoords[i]);
+        const moveCoords = ["(1, 1)", "(2, 1)", "(3, 1)", "(1, 2)", "(2, 2)", "(3, 2)", "(1, 3)", "(2, 3)", "(3, 3)"]
+        const coords = this.state.a;
+        coords.push(moveCoords[i])
 
         if (calculateWinner(squares).winner || squares[i]) return;
         squares[i] = this.state.xIsNext ? "X" : "O";
@@ -82,14 +83,15 @@ export default class Game extends React.Component {
             ]),
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext,
-            a: a
+            coords: coords
         });
     }
 
     jumpTo(step) {
         this.setState({
             stepNumber: step,
-            xIsNext: step % 2 ? false : true
+            xIsNext: step % 2 ? false : true,
+            a: this.state.coords.slice(0, step)
         });
     }
 
@@ -97,7 +99,7 @@ export default class Game extends React.Component {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares).winner;
-        const coord = this.state.a;
+        const coord = this.state.coords;
 
         const moves = history.map((step, move) => {
             const desc = move ? `Move # ${move} | ${coord[move - 1]}` : "Game start";
