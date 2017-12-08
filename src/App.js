@@ -59,7 +59,7 @@ export default class Game extends React.Component {
             xIsNext: true,
             reversed: false,
             coords: [],
-            a: []
+            slicedCoords: []
         };
     }
 
@@ -69,7 +69,7 @@ export default class Game extends React.Component {
         const squares = current.squares.slice();
 
         const moveCoords = ["(1, 1)", "(2, 1)", "(3, 1)", "(1, 2)", "(2, 2)", "(3, 2)", "(1, 3)", "(2, 3)", "(3, 3)"]
-        const coords = this.state.a;
+        const coords = this.state.slicedCoords;
         coords.push(moveCoords[i])
 
         if (calculateWinner(squares).winner || squares[i]) return;
@@ -91,7 +91,7 @@ export default class Game extends React.Component {
         this.setState({
             stepNumber: step,
             xIsNext: step % 2 ? false : true,
-            a: this.state.coords.slice(0, step)
+            slicedCoords: this.state.coords.slice(0, step)
         });
     }
 
