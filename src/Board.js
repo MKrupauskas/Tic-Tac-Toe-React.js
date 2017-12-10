@@ -28,15 +28,15 @@ export default class Board extends React.Component {
     }
 
     render() {
-        let si = -1;
+        let squareIndex = -1;
 
         return <div>
             {
                 Array(3).fill(null).map((a, i) =>
                     <div key={i} className="board-row">
                         {Array(3).fill(null).map(() => {
-                            si++;
-                            return this.renderSquare(si, this.props.winningSquares);
+                            squareIndex++;
+                            return this.renderSquare(squareIndex, this.props.winningSquares);
                         })}
                     </div>
                 )
