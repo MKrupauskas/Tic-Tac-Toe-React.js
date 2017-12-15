@@ -64,15 +64,15 @@ ul {
   margin-left: 20px;
 }
 
-.square--win  {
+.square--win {
   color: blue;
 }
 
 @media only screen and (max-width: 389px) {
   .game {
-      display: block;
+    display: block;
   }
-  
+
   .game-info {
     margin-top: 20px;
     margin-left: 0px;
